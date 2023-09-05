@@ -1,29 +1,48 @@
 const url = 'https://api.github.com/users/john-smilga/followers?per_page=100';
 
-// Fetch followers from the API
-fetch(url, {
-  headers: {
-    'Accept': 'application/json'
-  }
-})
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    let followers = data;
-    displayFollowers(followers);
-  })
-  .catch((error) => {
-    console.error('Fetch error:', error);
-  });
+// Fetch followers from the API and display them
+fetchFollowers();
 
-  const followersSection = document.querySelector('.followers');
+function fetchFollowers() {
+  fetch(url, {
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      let followers = data;
+      displayFollowers(followers);
+    })
+    .catch((error) => {
+      console.error('Fetch error:', error);
+    });
+}
+
+const followersSection = document.querySelector('.followers');
+const btnContainer = document.querySelector('.btn-container');
+
+let currentPage = 1;
+const followersPerPage = 10; // Set the number of followers per page
+
 // Displaying the data fetched as followers
 const displayFollowers = (followers) => {
-  const followersHTML = followers.map((follower) => {
+  createPageButtons(followers);
+  displayPage(currentPage, followers);
+}
+
+// Paginating pages
+function displayPage(pageNum, followers) {
+  const startIndex = (pageNum - 1) * followersPerPage;
+  const endIndex = startIndex + followersPerPage;
+  const paginatedFollowers = followers.slice(startIndex, endIndex);
+  
+  const followersHTML = paginatedFollowers.map((follower) => {
     const { login, html_url, avatar_url } = follower;
     return `
       <article class="person">
@@ -36,27 +55,28 @@ const displayFollowers = (followers) => {
   followersSection.innerHTML = followersHTML;
 }
 
-// Paginating pages
-let currentPage = 1;
-let paginationLimit = 10;
-let numberOfPages = Math.ceil(followers.length / paginationLImit);
-
-function DisplayPage(wrapper){
-    wrapper.innerHTML = '';
-currentPage = pageNum;
-
-const startIndex = (pageNum - 1) * paginationLimit;
-const EndIndex = pageNum * paginationLimit;
-const paginatedFollowers = followers.slice(startIndex,EndIndex);
-
-for(let i = 0;i < paginatedFollowers.length; i++){
-    let follower = paginatedFollowers[i];
-
-    let follower_element = document.createElement('div');
-    follower_element.classList.add('item');
-    follower_element.innerText = follower;
-    
-    wrapper.appendChild(item_element);
+// Create page buttons dynamically
+function createPageButtons(followers) {
+  const numberOfPages = Math.ceil(followers.length / followersPerPage);
+  const buttonsHTML = Array.from({ length: numberOfPages }, (_, index) => {
+    return `<button class="page-btn" data-page="${index + 1}">${index + 1}</button>`;
+  }).join('');
+  btnContainer.innerHTML = buttonsHTML;
+  const pageButtons = document.querySelectorAll('.page-btn');
+  pageButtons.forEach((button) => {
+    button.addEventListener('click', handlePageButtonClick);
+  });
 }
-}
+
+// Handle page button click event
+function handlePageButtonClick(event) {
+    currentPage = parseInt(event.target.getAttribute('data-page'));
+    displayPage(currentPage, followers);
+  }
+
+// Initial fetch and display
+function initialize() {
+    fetchFollowers();
+  }
   
+  initialize();
