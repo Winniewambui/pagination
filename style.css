@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgb(229, 239, 245);
+}
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+.followers{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin: 50px;
+}
+.title{
+    font-size: 2em;
+    text-transform: capitalize;
+}
+.underline{
+    display: block;
+    width: 10%;
+    height: 5px;
+    margin-top: 10px;
+    background-color: rgb(101, 210, 253);
+}
+.person{
+    margin-top: 50px;
+    width:350px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+
+}
+.image{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+}
+.name{
+    text-transform: capitalize;
+    padding-top: 10px;
+}
+.profile-btn{
+    text-decoration: none;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: rgb(255, 254, 254);
+    background-color: rgb(50, 194, 252);
+    border-radius: 15px;
+    border: none;
+}
+/* page buttons */
+.btn-container{
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+}
+.page-btn{
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.3rem;
+    background-color: rgb(117, 211, 248);
+    border-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0.5rem;
+    transition: var(--transition);
+}
+.active-btn {
+    background-color: blue;
+    color: white;
+  }
+  .prev-btn,
+  .next-btn {
+    background: transparent;
+    border-color: transparent;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    margin: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
