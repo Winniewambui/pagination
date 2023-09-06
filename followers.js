@@ -59,7 +59,7 @@ function displayPage(pageNum, followers) {
 function createPageButtons(followers) {
   const numberOfPages = Math.ceil(followers.length / followersPerPage);
   const buttonsHTML = Array.from({ length: numberOfPages }, (_, index) => {
-    return `<button class="page-btn" data-page="${index + 1}">${index + 1}</button>`;
+    return `<button class="page-btn" data-page="${index }">${index + 1}</button>`;
   })
 
   buttonsHTML.push(`<button class="next-btn">next</button>`)
