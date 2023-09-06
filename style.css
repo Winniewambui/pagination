@@ -11,21 +11,23 @@ main{
 
 }
 .main-container{
-    display: grid;
-    place-items: center;
-    min-height: 80vh;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    min-height: 100vh;
 }
 .followers{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    max-width: 1280px; 
+    max-width: 1200px; 
   margin: 0 auto; 
 }
 .title{
     font-size: 2em;
     text-transform: capitalize;
+    margin-top: 40px;
 }
 .underline{
     display: block;
