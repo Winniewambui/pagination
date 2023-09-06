@@ -60,9 +60,14 @@ function createPageButtons(followers) {
   const numberOfPages = Math.ceil(followers.length / followersPerPage);
   const buttonsHTML = Array.from({ length: numberOfPages }, (_, index) => {
     return `<button class="page-btn" data-page="${index + 1}">${index + 1}</button>`;
-  }).join('');
-  btnContainer.innerHTML = buttonsHTML;
-  const pageButtons = document.querySelectorAll('.page-btn');
+  })
+
+  buttonsHTML.push(`<button class="next-btn">next</button>`)
+  buttonsHTML.unshift(`<button class="prev-btn">prev</button>`)
+
+  btnContainer.innerHTML = buttonsHTML.join('');
+
+  const pageButtons = Array.from(document.querySelectorAll('.page-btn'));
   pageButtons.forEach((button) => {
     button.addEventListener('click', handlePageButtonClick);
   });
